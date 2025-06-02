@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved - TutorDeck North Texas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
+            --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-color: #14a085;
+            --dark-teal: #0d7377;
+            --light-teal: #a8dadc;
+            --warm-white: #f8fffe;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+        }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--warm-white); overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .animated-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+        .floating-shape { position: absolute; opacity: 0.1; animation: float 20s infinite ease-in-out; }
+        .floating-shape:nth-child(1) { width: 80px; height: 80px; background: var(--primary-gradient); border-radius: 50%; top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-shape:nth-child(2) { width: 60px; height: 60px; background: var(--secondary-gradient); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; top: 60%; right: 15%; animation-delay: -5s; }
+        .floating-shape:nth-child(3) { width: 100px; height: 100px; background: var(--accent-color); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); top: 40%; left: 80%; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 25% { transform: translateY(-30px) rotate(90deg); } 50% { transform: translateY(-60px) rotate(180deg); } 75% { transform: translateY(-30px) rotate(270deg); } }
+
+        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15); position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        header.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 12px 40px rgba(13, 115, 119, 0.2); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; height: 80px; }
+        .logo { font-size: 1.8rem; font-weight: 800; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; display: flex; align-items: center; transition: transform 0.3s ease; }
+        .logo:hover { transform: scale(1.05); }
+        .logo-icon { width: 40px; height: 40px; margin-right: 12px; background: var(--primary-gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: 0 4px 16px rgba(13, 115, 119, 0.3); }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; margin:0; padding:0; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.95rem; position: relative; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 8px 16px; border-radius: 8px; }
+        .nav-links a:hover { color: var(--accent-color); background: rgba(20, 160, 133, 0.1); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 3px; background: var(--primary-gradient); border-radius: 2px; transition: width 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
+        
+        .mobile-nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1005; width: 40px; height: 40px; position: relative; }
+        .hamburger-icon, .hamburger-icon::before, .hamburger-icon::after { content: ''; display: block; background-color: var(--text-dark); position: absolute; height: 3px; width: 25px; transition: transform 0.3s ease-out, background-color 0.3s ease-out; border-radius: 2px; left: 50%; transform: translateX(-50%); }
+        .hamburger-icon { top: 50%; transform: translate(-50%, -50%); }
+        .hamburger-icon::before { bottom: 7px; }
+        .hamburger-icon::after { top: 7px; }
+        .mobile-nav-toggle[aria-expanded="true"] .hamburger-icon { background-color: transparent; }
+        .mobile-nav-toggle[aria-expanded="true"] .hamburger-icon::before { transform: translateX(-50%) translateY(0px) rotate(45deg); bottom: 0; }
+        .mobile-nav-toggle[aria-expanded="true"] .hamburger-icon::after { transform: translateX(-50%) translateY(0px) rotate(-45deg); top: 0; }
+
+        .section { padding: 120px 0; position: relative; }
+        main > .section:first-of-type, #get-involved-intro.section { padding-top: 120px; }
+        #get-involved-intro.section { padding-bottom: 100px; background: var(--primary-gradient); color: white; min-height: auto; }
+        #get-involved-intro.section .section-header h2 { color: white; -webkit-text-fill-color: white; background-clip: unset; background: none; text-shadow: 1px 1px 5px rgba(0,0,0,0.2); }
+        #get-involved-intro.section .section-subtitle { color: rgba(255,255,255,0.9); font-size: 1.25rem; }
+        .section:nth-child(even) { background: linear-gradient(135deg, #f8fffe 0%, #f0fdfa 100%); }
+        #get-involved-intro.section:nth-child(even) { background: var(--primary-gradient); }
+        .section-header { text-align: center; margin-bottom: 4rem; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .section-header.animate { opacity: 1; transform: translateY(0); }
+        .section h2 { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-subtitle { font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .card { background: white; border-radius: 24px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(13, 115, 119, 0.1); border: 1px solid rgba(20, 160, 133, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; opacity: 0; transform: translateY(30px); }
+        .card.animate { opacity: 1; transform: translateY(0); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--primary-gradient); transform: translateX(-100%); transition: transform 0.6s ease; }
+        .card:hover::before { transform: translateX(0); }
+        .card:hover { transform: translateY(-12px); box-shadow: 0 25px 60px rgba(13, 115, 119, 0.2); }
+        .card-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; color: var(--accent-color); }
+        .card h3 { color: var(--dark-teal); margin-bottom: 1rem; font-size: 1.4rem; font-weight: 700; }
+        .card p { color: var(--text-light); line-height: 1.7; font-size: 0.95rem; }
+        .card p strong { color: var(--text-dark); font-weight: 600; }
+        .card p a { color: var(--accent-color); text-decoration: underline; font-weight: 600; }
+        .card p a:hover { color: var(--dark-teal); }
+        .cta-button { background: rgba(255, 255, 255, 0.2); color: white; padding: 16px 32px; border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+        .cta-button.primary { background: rgba(255,255,255,0.95); color: var(--dark-teal); border-color: transparent; }
+        .cta-button:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+        .cta-button.primary:hover { background: white; box-shadow: 0 16px 48px rgba(255,255,255,0.4); }
+
+
+        footer { background: linear-gradient(135deg, #0d7377 0%, #0a5d61 100%); color: white; padding: 80px 0 30px; position: relative; overflow: hidden; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>'); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; position: relative; z-index: 2; }
+        .footer-section h3 { margin-bottom: 1.5rem; color: var(--light-teal); font-size: 1.3rem; font-weight: 700; }
+        .footer-section p, .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; transition: color 0.3s ease; font-size: 0.95rem; }
+        .footer-section .footer-icon { font-size: 1.1rem; color: var(--light-teal); }
+        .footer-section a:hover { color: white; }
+        .footer-section a:hover .footer-icon { color: white; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; text-align: center; position: relative; z-index: 2; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.animate { opacity: 1; transform: translateY(0); }
+        .section-blur-entry { opacity: 0; filter: blur(8px); transition: opacity 0.8s ease-out, filter 0.8s ease-out; }
+        .section-blur-entry.animate { opacity: 1; filter: blur(0px); }
+
+        #askDeckWindow {
+            position: fixed;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            z-index: 1010; 
+            display: flex; 
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            width: 350px; 
+            height: 500px;
+            bottom: 90px; 
+            right: 20px;
+        }
+        #askDeckHeader {
+            background: linear-gradient(135deg, #0d7377 0%, #14a085 100%);
+            color: white;
+            padding: 10px 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .askdeck-title { font-size: 1.2em; font-weight: bold; }
+        #closeAskDeck {
+            background: none; border: none; color: white;
+            font-size: 1.6em; cursor: pointer; padding: 8px; 
+            line-height: 1; z-index: 10; 
+        }
+        #askDeckMessages { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+        #askDeckInputArea { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        #askDeckInputArea input { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; font-size: 0.9em; }
+        #askDeckInputArea button { background-color: var(--accent-color, #14a085); color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+
+        .askdeck-message { padding: 8px 12px; border-radius: 18px; max-width: 80%; line-height: 1.4; font-size: 0.95em; word-wrap: break-word; }
+        .user-message { align-self: flex-end; background-color: var(--dark-teal, #0d7377); color: white; border-bottom-right-radius: 5px; }
+        .ai-message { align-self: flex-start; background-color: #e9e9eb; color: var(--text-dark, #2c3e50); border-bottom-left-radius: 5px; }
+        #askDeckMessages::-webkit-scrollbar { width: 6px; }
+        #askDeckMessages::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 3px; }
+        #askDeckMessages::-webkit-scrollbar-track { background-color: #f1f1f1; }
+
+        #askDeckToggle {
+            position: fixed;
+            background-color: #0d7377; color: white; border: none;
+            border-radius: 50%; width: 60px; height: 60px;
+            font-size: 24px; cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1011; 
+            bottom: 20px; right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 0; }
+            .logo { font-size: 1.5rem; }
+            .logo-icon { width: 35px; height: 35px; font-size: 1.3rem; }
+            .mobile-nav-toggle { display: block; }
+            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; padding-top: 80px; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1002; display: flex; list-style: none; margin: 0; }
+            .nav-links.mobile-nav-active { transform: translateX(0); }
+            .nav-links li { width: 80%; text-align: center; }
+            .nav-links a { font-size: 1.3rem; padding: 0.8rem; display: block; width: 100%; border-radius: 8px; color: var(--text-dark); }
+            .nav-links a:hover { color: var(--accent-color); background: rgba(20, 160, 133, 0.1); }
+            .nav-links a::after { display: none; }
+            
+            main > .section:first-of-type, #get-involved-intro.section { padding-top: 100px; padding-bottom: 60px; }
+            #get-involved-intro.section .section-subtitle { font-size: 1.1rem; }
+            .section { padding: 70px 0; }
+            .section h2 { font-size: 2rem; }
+            .section-subtitle { font-size: 0.95rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .cta-button { width: 100%; max-width: 280px; justify-content: center; font-size: 1rem; padding: 14px 28px; }
+            .footer-content { text-align: center; }
+            .footer-section p, .footer-section a { justify-content: center; }
+
+            .section-blur-entry, .fade-in, .section-header, .card, .stat-item { opacity: 1; transform: translateY(0); filter: blur(0px); transition: none; animation: none; }
+
+            #askDeckWindow {
+                width: calc(100% - 20px); 
+                max-width: 100%; 
+                height: calc(100% - 80px); 
+                bottom: 70px; 
+                left: 10px;
+                right: 10px; 
+                transform: none; 
+                border-radius: 10px; 
+            }
+            #askDeckToggle { width: 55px; height: 55px; font-size: 22px; bottom: 10px; right: 10px; }
+            #askDeckInputArea input { font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) { 
+            .logo { font-size: 1.3rem; }
+            .logo-icon { width: 30px; height: 30px; font-size: 1.1rem; }
+            main > .section:first-of-type, #get-involved-intro.section { padding-top: 80px; padding-bottom: 50px; }
+            #get-involved-intro.section .section-header h2, .section h2 { font-size: 1.8rem; }
+            #get-involved-intro.section .section-subtitle, .section-subtitle { font-size: 0.9rem; }
+            .nav-links a { font-size: 1.2rem; }
+            .card { padding: 1.5rem; }
+            .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+            .card h3 { font-size: 1.2rem; }
+            #askDeckWindow { 
+                height: calc(100% - 70px); 
+                bottom: 60px; 
+                border-radius: 10px 10px 0 0; 
+             }
+            #askDeckToggle { width: 50px; height: 50px; font-size: 20px; bottom: 5px; right: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <a href="index.html#home" class="logo"> 
+                <div class="logo-icon">🦅</div>
+                TutorDeck North Texas
+            </a>
+            <ul class="nav-links" id="navLinksGetInvolved"> 
+                <li><a href="index.html#home">Home</a></li> 
+                <li><a href="index.html#about">About</a></li> 
+                <li><a href="index.html#impact">Impact</a></li> 
+                <li><a href="index.html#schools">Schools</a></li> 
+                <li><a href="index.html#awards">Awards</a></li> 
+                <li><a href="index.html#contact">Contact</a></li> 
+            </ul>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinksGetInvolved">
+                <span class="hamburger-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="animated-bg">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+
+        <section id="get-involved-intro" class="section section-blur-entry">
+             <div class="container">
+                <div class="section-header fade-in"> 
+                    <h2>Join or Start a TutorDeck Chapter</h2>
+                    <p class="section-subtitle">Ready to make a difference? Learn how you can become a part of TutorDeck North Texas, either by joining an existing chapter or by bringing TutorDeck to your school.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="join-chapter" class="section section-blur-entry">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>How to Join an Existing Chapter</h2>
+                    <p class="section-subtitle">If there's already a TutorDeck chapter at your school or in your community, here’s how you can get involved.</p>
+                </div>
+                <div class="cards-grid">
+                    <div class="card fade-in"><span class="card-icon">🔎</span><h3>1. Check Availability</h3><p>First, find out if a TutorDeck chapter is active at your school. You can ask teachers, school counselors, or check with student government. You can also <a href="#contact">contact us</a> (which links to this page's footer), and we can let you know about active chapters in your area.</p></div>
+                    <div class="card fade-in" style="transition-delay: 0.1s;"><span class="card-icon">🗣️</span><h3>2. Contact Chapter Leadership</h3><p>Once you've identified a chapter, reach out to the student leader or the faculty advisor. They can provide specific details about their activities, meeting times, and how to join.</p></div>
+                    <div class="card fade-in" style="transition-delay: 0.2s;"><span class="card-icon">💡</span><h3>3. Learn About the Chapter</h3><p>Attend an informational meeting if available, or talk to current members. This is a great way to understand the chapter's focus, the time commitment involved, and the types of tutoring opportunities available.</p></div>
+                    <div class="card fade-in" style="transition-delay: 0.3s;"><span class="card-icon">📝</span><h3>4. Sign Up & Participate</h3><p>Follow the chapter's official sign-up process. This might involve completing a form, attending an orientation, or undergoing a brief training. Then, you're ready to start tutoring and making an impact!</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="start-chapter" class="section section-blur-entry"> 
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>How to Start a New Chapter</h2>
+                    <p class="section-subtitle">Can't find a chapter? Be a pioneer! Starting a TutorDeck chapter at your school is a rewarding experience. Here’s a basic guide:</p>
+                </div>
+                <div class="cards-grid">
+                    <div class="card fade-in"><span class="card-icon">📧</span><h3>1. Contact TutorDeck North Texas</h3><p>This is the most important first step! Reach out to us at <strong>prospertutorcorp@gmail.com</strong>. We’ll provide you with a starter kit, resources, mentorship, and guide you through the entire process.</p></div>
+                    <div class="card fade-in" style="transition-delay: 0.1s;"><span class="card-icon">🧑‍🏫</span><h3>2. Find a Faculty Advisor</h3><p>A supportive teacher or school staff member to act as a faculty advisor is crucial. They can help you navigate school policies, provide a meeting space, and offer guidance. We can help you approach potential advisors.</p></div>
+                    <div class="card fade-in" style="transition-delay: 0.2s;"><span class="card-icon">👥</span><h3>3. Gauge Student Interest</h3><p>Talk to your friends and classmates. Are there students who want to volunteer as tutors? Are there students who would benefit from tutoring? Present this interest to your potential faculty advisor and to us.</p></div>
+                    <div class="card fade-in" style="transition-delay: 0.3s;"><span class="card-icon">🚀</span><h3>4. Plan Your Launch</h3><p>With support from us and your advisor, outline your chapter’s goals, meeting schedules, and initial activities. This includes how you'll recruit tutors and tutees, and how you'll connect with platforms like Schoolhouse.world.</p></div>
+                    <div class="card fade-in" style="transition-delay: 0.4s;"><span class="card-icon">📢</span><h3>5. Official Setup & Promotion</h3><p>Follow your school's procedures for establishing a new club or organization. Once approved, promote your new TutorDeck chapter through school announcements, posters, and social media to attract members and students seeking help.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="next-steps" class="section section-blur-entry">
+            <div class="container"><div class="section-header fade-in"><h2>Ready to Take the Next Step?</h2><p class="section-subtitle">Whether you're looking to join or start a chapter, we're excited to have you on board. Your dedication can make a real difference in our community and beyond.</p></div><div style="text-align: center; margin-top: 2rem;"><p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 1.5rem;">Have more questions or ready to begin? The "AskDeck" AI (bottom right of your screen) can help with quick questions, or feel free to reach out to us directly!</p><a href="mailto:prospertutorcorp@gmail.com" class="cta-button primary" style="background: var(--accent-color); color: white;"><span>Email Us: prospertutorcorp@gmail.com</span><span style="font-size: 1.2em;">📧</span></a><p style="margin-top: 2rem; font-size: 1.1rem; color: var(--text-light);">You can also find our full contact details in the <a href="#contact" style="color: var(--accent-color); text-decoration: underline;">footer below</a>.</p></div></div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container"><div class="footer-content"><div class="footer-section"><h3>Contact Us</h3><p><span class="footer-icon">📧</span> prospertutorcorp@gmail.com</p><p><span class="footer-icon">📱</span> ‪(469) 850-4335‬</p><p><span class="footer-icon">📍</span> Prosper, Texas</p><p><span class="footer-icon">🌐</span> Based in North Texas, Serving Globally</p></div><div class="footer-section"><h3>Quick Links</h3>
+            <a href="index.html#about"><span class="footer-icon">ℹ️</span>About TutorDeck</a> 
+            <a href="index.html#impact"><span class="footer-icon">📈</span>Our Impact</a> 
+            <a href="index.html#schools"><span class="footer-icon">🏫</span>Partner Schools</a> 
+            <a href="https://schoolhouse.world" target="_blank" rel="noopener noreferrer"><span class="footer-icon">🌍</span>Schoolhouse.world</a>
+        </div><div class="footer-section"><h3>Get Involved</h3><p><span class="footer-icon">🎓</span> Become a Volunteer Tutor</p><p><span class="footer-icon">📚</span> Request Tutoring Support</p><a href="mailto:prospertutorcorp@gmail.com" class="cta-button primary" style="margin-top: 1rem; padding: 12px 24px; font-size: 1rem; background: var(--light-teal); color: var(--dark-teal); border: none;"><span class="footer-icon" style="color: var(--dark-teal);">🙋</span>Join Us!</a></div></div><div class="footer-bottom"><p>&copy; 2024 TutorDeck North Texas. Empowering students to help students succeed.</p>
+            <p><a href="index.html" style="color: rgba(255,255,255,0.7); text-decoration: underline;">Back to Home Page</a></p> 
+        </div></div>
+    </footer>
+
+    <button id="askDeckToggle">?</button>
+
+    <div id="askDeckWindow" style="display: none;">
+        <div id="askDeckHeader"> 
+            <span class="askdeck-title">AskDeck</span>
+            <button id="closeAskDeck">&times;</button> 
+        </div>
+        <div id="askDeckMessages">
+            <!-- Initial message set by JS -->
+        </div>
+        <div id="askDeckInputArea">
+            <input type="text" id="askDeckUserInput" placeholder="Ask a question...">
+            <button id="askDeckSendButton">Send</button>
+        </div>
+    </div>
+
+    <script type="module"> 
+    document.addEventListener('DOMContentLoaded', () => {
+        // Header scroll effect
+        const header = document.getElementById('header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Scroll Animations
+        const animatedElements = document.querySelectorAll('.fade-in, .stat-item, .card, .award-card, .section-header, .benefits-showcase, .section-blur-entry');
+        const observerCallback = (entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let delay = parseFloat(entry.target.style.transitionDelay) || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, delay * 1000);
+                    observerInstance.unobserve(entry.target); 
+                }
+            });
+        };
+        const animationObserver = new IntersectionObserver(observerCallback, { threshold: 0.1 });
+        animatedElements.forEach(el => { animationObserver.observe(el); });
+
+        // Mobile Navigation Toggle for this page
+        const mobileNavToggleGetInvolved = document.querySelector('.mobile-nav-toggle'); 
+        const navMenuGetInvolved = document.getElementById('navLinksGetInvolved'); 
+
+        if (mobileNavToggleGetInvolved && navMenuGetInvolved) {
+            mobileNavToggleGetInvolved.addEventListener('click', () => {
+                const isOpened = navMenuGetInvolved.classList.toggle('mobile-nav-active');
+                mobileNavToggleGetInvolved.setAttribute('aria-expanded', isOpened);
+                document.body.style.overflowY = isOpened ? 'hidden' : '';
+            });
+
+            navMenuGetInvolved.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenuGetInvolved.classList.contains('mobile-nav-active')) {
+                        navMenuGetInvolved.classList.remove('mobile-nav-active');
+                        mobileNavToggleGetInvolved.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflowY = '';
+                    }
+                });
+            });
+        }
+        
+        // --- AskDeck Chatbot Logic ---
+        const ASKDECK_CONTEXT_WINDOW = `AskDeck is designed to engage and assist students at Prosper High School, as well as others in North Texas, with TutorDeck’s tutoring and mentoring opportunities. The primary audience for AskDeck is high school students looking for tutoring or mentorship, while secondary users include parents or educators who might have questions about the programs or student involvement.
+
+The chatbot’s purpose is threefold: to inform users about TutorDeck’s initiatives, guide them through the processes of signing up for tutoring or mentoring, and provide general assistance with any questions related to TutorDeck’s services. Whether someone is looking to tutor, be mentored, or simply gain more information about TutorDeck, AskDeck should be a helpful resource. IMPORTANT: Your responses MUST be very concise. For most initial questions, aim to answer in 1-2 clear sentences. If explaining a program or a multi-step process, you can use up to 3-4 sentences. Always prioritize brevity and directness. After your brief answer, always offer to provide more details if the user asks for them (e.g., "Would you like to know more about that?"). The chatbot should provide next steps for users whenever appropriate, ensuring that they always know what to do next.
+
+The tone and style of AskDeck should be friendly, approachable, and professional but casual. The language should be conversational, as if the chatbot is a helpful peer that understands the challenges of high school students. While the responses should remain respectful and professional, the chatbot should avoid overly formal language and use a more laid-back, encouraging tone. It's important to remain empathetic and inclusive, acknowledging the different backgrounds and experiences of the users. If a student is struggling to get involved or has questions about a specific program, AskDeck should be reassuring and provide clear guidance on how to overcome those challenges.
+
+In terms of response format, AskDeck should always start with a welcoming greeting. A friendly, open response like “Hey there! I’m AskDeck, your tutor assistant. How can I help you today?” sets the tone for a comfortable interaction. After that, it should personalize the conversation whenever possible, responding directly to the user’s needs or interests. If a user asks about a program, for example, the chatbot should provide specific information related to that program (adhering to conciseness rules), while also encouraging further questions or engagement. Additionally, AskDeck should provide clear instructions or links for users to follow, such as registration forms or application processes, so they can easily take the next step. After addressing the user’s question, AskDeck should check in to make sure the response was helpful and offer further assistance if needed.
+
+Key information that AskDeck should include in its responses involves the core programs of TutorDeck, such as the Middle School Mentoring Program and the Tutor Your Peer Initiative. The chatbot should provide a clear explanation of how students can get involved with these programs, including the qualifications, registration processes, and expectations for both tutors and mentees. Additionally, AskDeck should answer common questions about volunteering, such as how to track and submit tutoring hours, and how those hours can be certified for use in college applications or honor societies. (Remember to keep these explanations initially brief, offering more detail upon request).
+
+Whenever responding to inquiries, AskDeck should follow a clear structure. For example, when explaining how to become a tutor, the chatbot could briefly state the main steps (e.g., "To become a tutor, you'll generally need to register, submit a transcript, and possibly attend an orientation. Would you like the details for each step?"). For users asking about volunteer hours, AskDeck should provide a straightforward, brief description of how hours are handled. If a user is unclear about any process, AskDeck should offer follow-up clarification to make sure the information is fully understood.
+
+AskDeck’s tone may need slight adjustments depending on the situation. For example, if a user seems stressed about their academic workload, the chatbot should respond empathetically, saying something like, “I know school can be tough sometimes! Don’t worry, we’ve got tutors ready to help. Let me guide you to the best resources.” On the other hand, when answering straightforward questions like how to register for a tutoring session, AskDeck should provide brief, direct responses: “You can get started by registering through this link [link]. You’ll just need to submit your transcript and you’re good to go!” (Ensure any links are functional if you plan to include them).
+
+If AskDeck encounters any unclear or complex requests, it should politely ask the user to clarify, ensuring that they receive the information they need. For example: “I’m not quite sure I got that—could you rephrase it for me?” In cases where AskDeck cannot assist with a specific inquiry, it should offer a fallback option, like: “I’ll pass this along to a TutorDeck team member who can help out.”
+
+Remember, the key is to be brief first, then offer more information.`;
+
+        const askDeckToggle = document.getElementById('askDeckToggle');
+        const askDeckWindow = document.getElementById('askDeckWindow');
+        const closeAskDeckButton = document.getElementById('closeAskDeck');
+        const askDeckMessages = document.getElementById('askDeckMessages');
+        const askDeckUserInput = document.getElementById('askDeckUserInput');
+        const askDeckSendButton = document.getElementById('askDeckSendButton');
+
+        if(askDeckMessages) {
+            askDeckMessages.innerHTML = ''; 
+            appendMessage("Hey there! I’m AskDeck, your tutor assistant. How can I help you today?", 'ai');
+        }
+
+        if(askDeckToggle && askDeckWindow) {
+            askDeckToggle.addEventListener('click', () => {
+                const isCurrentlyHidden = askDeckWindow.style.display === 'none' || askDeckWindow.style.display === '';
+                askDeckWindow.style.display = isCurrentlyHidden ? 'flex' : 'none';
+                askDeckToggle.innerHTML = isCurrentlyHidden ? '&times;' : '?'; 
+            });
+        }
+
+        if(closeAskDeckButton && askDeckWindow) {
+            closeAskDeckButton.addEventListener('click', () => {
+                askDeckWindow.style.display = 'none';
+                if(askDeckToggle) askDeckToggle.innerHTML = '?';
+            });
+        }
+
+        if(askDeckSendButton && askDeckUserInput) { 
+             askDeckSendButton.addEventListener('click', sendMessage);
+             askDeckUserInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        function sendMessage() {
+            if(!askDeckUserInput || !askDeckMessages) return; 
+            const messageText = askDeckUserInput.value.trim();
+            if (messageText === '') return;
+
+            appendMessage(messageText, 'user');
+            askDeckUserInput.value = '';
+            appendMessage('Thinking...', 'ai', true); 
+
+            getAIResponse(messageText)
+                .then(response => {
+                    const typingIndicator = askDeckMessages.querySelector('.typing-indicator');
+                    if (typingIndicator) typingIndicator.remove();
+                    appendMessage(response, 'ai');
+                })
+                .catch(error => {
+                    const typingIndicator = askDeckMessages.querySelector('.typing-indicator');
+                    if (typingIndicator) typingIndicator.remove();
+                    appendMessage('Sorry, an error occurred while fetching a response. Please try again.', 'ai'); 
+                    console.error('Error in getAIResponse promise chain:', error);
+                });
+        }
+
+        function appendMessage(text, sender, isTemporary = false) {
+            if(!askDeckMessages) return; 
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('askdeck-message');
+            messageElement.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+            if (isTemporary) {
+                messageElement.classList.add('typing-indicator');
+            }
+            messageElement.textContent = text;
+            askDeckMessages.appendChild(messageElement);
+            askDeckMessages.scrollTop = askDeckMessages.scrollHeight;
+        }
+
+        async function getAIResponse(userMessage) {
+            const backendUrl = 'https://my-tutordeck-askdeck-api.onrender.com/api/askdeck'; 
+            
+            console.log(`Sending message to Render backend: ${userMessage}`);
+            
+            try {
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: userMessage,
+                        context: ASKDECK_CONTEXT_WINDOW 
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ error: "Unknown error from backend" }));
+                    console.error("Backend error:", response.status, errorData);
+                    appendMessage(`Error from assistant: ${errorData.error || response.statusText}`, 'ai'); 
+                    throw new Error(`Backend error: ${response.status} - ${errorData.error || "Failed to fetch"}`);
+                }
+                
+                const data = await response.json();
+                return data.reply; 
+
+            } catch (error) {
+                console.error("Error fetching from Render backend:", error);
+                appendMessage(`Network or connection error: ${error.message.substring(0,100)}... Check console.`, 'ai'); 
+                return "I'm having trouble connecting. Please try again soon.";
+            }
+        }
+    }); // End of DOMContentLoaded
+    </script>
+</body>
+</html>
